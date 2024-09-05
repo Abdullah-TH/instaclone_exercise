@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+  <nav class="flex justify-end p-6 bg-gray-300 mb-3">
+    <% if user_signed_in? %>
+      <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete}, class: "underline" %>
+    <% else %>
+      <%= link_to "Sign in", new_user_session_path, class: "underline" %>
+    <% end %>
+  </nav>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   <%= yield %>
