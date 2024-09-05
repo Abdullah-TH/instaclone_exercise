@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "post-form" do %>
+  <%= form_with model: @post do |form| %>
+    <%= form.text_field :body %>
+    <%= form.submit :send %>
+  <% end %>
+<% end %>
