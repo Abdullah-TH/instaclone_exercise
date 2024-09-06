@@ -6,6 +6,6 @@ class LikesController < ApplicationController
 
   def destroy
     @post = current_user.posts.find_by(id: params[:post_id])
-    current_user.likes.where(post_id: @post.id).delete_all
+    current_user.unlike!(@post)
   end
 end

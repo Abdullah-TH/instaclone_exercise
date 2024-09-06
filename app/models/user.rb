@@ -13,4 +13,12 @@ class User < ApplicationRecord
   def like!(post)
     likes << Like.new(post: post)
   end
+
+  def unlike!(post)
+    likes.where(post_id: post.id).delete_all
+  end
+
+  def like?(post)
+    !likes.where(post_id: post.id).empty?
+  end
 end
