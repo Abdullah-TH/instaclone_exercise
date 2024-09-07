@@ -11,14 +11,14 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
 
   def like!(post)
-    likes << Like.new(post: post)
+    likes << Like.new(likable: post)
   end
 
   def unlike!(post)
-    likes.where(post_id: post.id).delete_all
+    likes.where(likable_id: post.id).delete_all
   end
 
   def like?(post)
-    !likes.where(post_id: post.id).empty?
+    !likes.where(likable_id: post.id).empty?
   end
 end
