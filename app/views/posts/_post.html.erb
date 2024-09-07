@@ -7,7 +7,7 @@
   </div>
   <div class="flex justify-between w-full my-2">
     <div class="flex">
-      <%= turbo_frame_tag "post-likes" do %>
+      <%= turbo_frame_tag "post-#{post.id}-likes" do %>
         <% unless current_user.nil? %>
           <% if current_user.like?(post) %>
             <%= render partial: "likes/unlike_post", locals: { post: post } %>
@@ -18,14 +18,14 @@
       <% end %>
     </div>
     <div class="flex">
-      <p id="post-comments-count"><%= pluralize(post.comments.count, "comment") %></p>
+      <p id="post-<%= post.id %>-comments-count"><%= pluralize(post.comments.count, "comment") %></p>
     </div>
   </div>
   <div>
-    <div id="comment-form">
+    <div id="post-<%= post.id %>-comment-form">
       <%= render partial: "comments/form", locals: { post: post } %>
     </div>
-    <div id="post-comments-list">
+    <div id="post-<%= post.id %>-comments-list">
       <%= render partial: "comments/list", locals: { post: post } %>
     </div>
   </div>
