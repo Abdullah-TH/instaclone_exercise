@@ -8,10 +8,12 @@
   <div class="flex justify-between w-full my-2">
     <div class="flex">
       <%= turbo_frame_tag "post-likes" do %>
-        <% if current_user.like?(post) %>
-          <%= render partial: "likes/unlike_post", locals: { post: post } %>
-        <% else %>
-          <%= render partial: "likes/like_post", locals: { post: post } %>
+        <% unless current_user.nil? %>
+          <% if current_user.like?(post) %>
+            <%= render partial: "likes/unlike_post", locals: { post: post } %>
+          <% else %>
+            <%= render partial: "likes/like_post", locals: { post: post } %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
