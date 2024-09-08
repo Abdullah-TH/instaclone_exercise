@@ -1,11 +1,21 @@
 class LikesController < ApplicationController
+  before_action :set_likable
+
   def create
-    @post = Post.find(params[:post_id])
-    current_user.like!(@post)
+    current_user.like!(@likable)
   end
 
   def destroy
-    @post = current_user.posts.find_by(id: params[:post_id])
-    current_user.unlike!(@post)
+    current_user.unlike!(@likable)
+  end
+
+  private
+
+  def set_likable
+    if params[:post_id].present?
+      @likable = Post.find(params[:post_id])
+    elsif params[:comment_id].present?
+      @likable = Comment.find(params[:comment_id])
+    end
   end
 end

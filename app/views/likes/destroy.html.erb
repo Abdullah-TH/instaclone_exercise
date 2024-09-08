@@ -1,3 +1,9 @@
-<%= turbo_frame_tag "post-#{@post.id}-likes" do %>
-  <%= render partial: "like_post", locals: { post: @post } %>
+<% if @likable.is_a?(Post) %>
+  <%= turbo_frame_tag "post-#{@likable.id}-likes" do %>
+    <%= render partial: "like_post", locals: { post: @likable } %>
+  <% end %>
+<% elsif @likable.is_a?(Comment) %>
+  <%= turbo_frame_tag "comment-#{@likable.id}" do %>
+    <%= render partial: "like_comment", locals: { comment: @likable } %>
+  <% end %>
 <% end %>

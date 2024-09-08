@@ -11,4 +11,13 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :comments, only: [] do
+    resources :likes, only: [:create] do
+      collection do
+        delete :destroy
+      end
+    end
+  end
+
 end
