@@ -4,12 +4,17 @@
       <span class="font-bold"><%= comment.user.username %>:&nbsp</span>
       <span class="post-comment-body"><%= comment.body %></span>
     </div>
-    <div class="flex gap-2">
-      <%= turbo_frame_tag "comment-#{comment.id}" do %>
-        <% if current_user.like?(comment) %>
-          <%= render partial: "likes/unlike_comment", locals: { comment: comment } %>
+    <div class="">
+      <%= turbo_frame_tag "comment-#{comment.id}", class: "flex gap-2" do %>
+        <% if current_user.nil? %>
+          <div><%= pluralize(comment.likes.count, "like") %></div>
         <% else %>
-          <%= render partial: "likes/like_comment", locals: { comment: comment } %>
+          <% if current_user.like?(comment) %>
+            <%= render partial: "likes/unlike_comment", locals: { comment: comment } %>
+          <% else %>
+            <%= render partial: "likes/like_comment", locals: { comment: comment } %>
+          <% end %>
+          <div><%= comment.likes.count %></div>
         <% end %>
       <% end %>
     </div>
